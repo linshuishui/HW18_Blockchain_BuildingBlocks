@@ -74,6 +74,7 @@ class Block:
 
     creator_id: int
     prev_hash: str = "0"
+    current_hash: str = "0"
     timestamp: str = datetime.datetime.utcnow().strftime("%H:%M:%S")
     nonce: int = 0
 
@@ -88,7 +89,7 @@ class Block:
 
         timestamp = str(self.timestamp).encode()
         sha.update(timestamp)
-
+        
         prev_hash = str(self.prev_hash).encode()
         sha.update(prev_hash)
 
@@ -114,13 +115,15 @@ class PyChain:
             block.nonce += 1
 
             calculated_hash = block.hash_block()
-
+            current_hash = calculated_hash
+            
         print("Wining Hash", calculated_hash)
         return block
 
     def add_block(self, candidate_block):
         block = self.proof_of_work(candidate_block)
         self.chain += [block]
+              
 
     def is_valid(self):
         block_hash = self.chain[0].hash_block()
@@ -134,6 +137,10 @@ class PyChain:
 
         print("Blockchain is Valid")
         return True
+    
+    def update_current_hash (self, block):
+        block.current_hash = block.hash_block()
+        return block
 
 ################################################################################
 # Streamlit Code
@@ -172,15 +179,24 @@ input_data = st.text_input("Block Data")
 
 # @TODO:
 # Add an input area where you can get a value for `sender` from the user.
-# YOUR CODE HERE
+sender_data = str(st.text_area("Sender:")).encode()  ## Convert input data into string then encode it
+# Use the Streamlit "write" function to display the length of the Sender value
+st.write(f"Sender Length:{len(sender_data)}")
 
 # @TODO:
 # Add an input area where you can get a value for `receiver` from the user.
-# YOUR CODE HERE
+receiver_data = str(st.text_area("Receiver:")).encode()
+# Use the Streamlit "write" function to display the length of the Sender value
+st.write(f"Receiver Length:{len(receiver_data)}")
 
 # @TODO:
 # Add an input area where you can get a value for `amount` from the user.
-# YOUR CODE HERE
+amount_data = float(st.number_input("Sending Amount:"))
+
+selected_block = st.selectbox(
+    "Which cryptocurrency would you like to send?", ["BTC", "ETH"]
+)
+
 
 if st.button("Add Block"):
     prev_block = pychain.chain[-1]
@@ -191,12 +207,14 @@ if st.button("Add Block"):
     # which is set equal to a `Record` that contains the `sender`, `receiver`,
     # and `amount` values
     new_block = Block(
-        data=input_data,
+        record=Record(sender=sender_data, receiver=receiver_data, amount=amount_data),
         creator_id=42,
         prev_hash=prev_block_hash
+        
     )
 
     pychain.add_block(new_block)
+    pychain.update_current_hash(new_block)
     st.balloons()
 
 ################################################################################
@@ -205,6 +223,7 @@ if st.button("Add Block"):
 st.markdown("## The PyChain Ledger")
 
 pychain_df = pd.DataFrame(pychain.chain).astype(str)
+
 st.write(pychain_df)
 
 difficulty = st.sidebar.slider("Block Difficulty", 1, 5, 2)
