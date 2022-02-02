@@ -19,7 +19,7 @@ You’ll make the following updates to the provided Python file for this assignm
 
 Download the following files to help you get started:
 
-[Module 18 Homework files](Starter_Code/pychain.py)
+[Module 18 Homework files](https://github.com/linshuishui/HW18_Blockchain_BuildingBlocks/blob/main/pychain.py)
 
 ---
 
@@ -31,11 +31,33 @@ The steps for this assignment are divided into the following sections:
 
 1. Create a Record Data Class
 
+   <img src =".\Images\data_class.png" style ="zoom: 70%; ">
+
 2. Modify the Existing Block Data Class to Store Record Data
+
+   <img src=".\Images\modify.png" style="zoom:50%;" />
 
 3. Add Relevant User Inputs to the Streamlit Interface
 
+   <img src =".\Images\user_input.png" style ="zoom: 50%;">
+
 4. Test the PyChain Ledger by Storing Records
+
+    a) demos of the use of the web interface of this py file 
+
+   <video src =".\Images\pychain_demo_2.mp4">
+   
+   
+</video>
+   
+b) demo of the activities happening in Git Bash 
+   
+<video src =".\Images\pychain_demo_1.mp4">
+   
+   
+   </video>
+
+   
 
 ### Step 1: Create a Record Data Class
 
