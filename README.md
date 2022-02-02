@@ -45,19 +45,20 @@ The steps for this assignment are divided into the following sections:
 
     a) demos of the use of the web interface of this py file 
 
-   <video src =".\Images\pychain_demo_2.mp4">
-   
+   <video src =".\Images\pychain_demo_2.mp4?raw=true"></video>
+  
+     
    
 </video>
    
 b) demo of the activities happening in Git Bash 
    
-<video src =".\Images\pychain_demo_1.mp4">
+<video src =".\Images\pychain_demo_1.mp4?raw=true"></video>
+   
    
    
    </video>
 
-   
 
 ### Step 1: Create a Record Data Class
 
